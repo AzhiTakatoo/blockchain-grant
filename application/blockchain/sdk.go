@@ -3,22 +3,23 @@ package blockchain
 import (
 	"github.com/hyperledger/fabric-sdk-go/pkg/client/channel"
 	"github.com/hyperledger/fabric-sdk-go/pkg/core/config"
-	"github.com/hyperledger/fabric-sdk-go/pkg/fabsdk"
+	"github.com/hyperledger/fabric-sdk-go/pkg/fabsdk" //允许客户端使用Hyperledger Fabric网络
 )
 
 // 配置信息
 var (
-	SDK           *fabsdk.FabricSDK          // Fabric提供的SDK
-	ChannelName   = "assetschannel"          // 通道名称
-	ChainCodeName = "blockchain-real-estate" // 链码名称
-	Org           = "org1"                   // 组织名称
-	User          = "Admin"                  // 用户
-	ConfigPath    = "conf/config.yaml"       // 配置文件路径
+	SDK           *fabsdk.FabricSDK    // Fabric提供的SDK
+	ChannelName   = "assetschannel"    // 通道名称
+	ChainCodeName = "blockchain-grant" // 链码名称
+	Org           = "org1"             // 组织名称
+	User          = "Admin"            // 用户
+	ConfigPath    = "conf/config.yaml" // 配置文件路径
 )
 
 // Init 初始化
 func Init() {
 	var err error
+	//创建sdk实例
 	// 通过配置文件初始化SDK
 	SDK, err = fabsdk.New(config.FromFile(ConfigPath))
 	if err != nil {
@@ -34,12 +35,13 @@ func ChannelExecute(fcn string, args [][]byte) (channel.Response, error) {
 	if err != nil {
 		return channel.Response{}, err
 	}
-	// 对区块链增删改的操作（调用了链码的invoke）
+	// 对区块链增删改的操作（调用了链码的invoke），将结果返回
+	//第一个参数Request包含必备链码ID和函数的相关信息
 	resp, err := cli.Execute(channel.Request{
 		ChaincodeID: ChainCodeName,
 		Fcn:         fcn,
 		Args:        args,
-	}, channel.WithTargetEndpoints("peer0.org1.blockchainrealestate.com"))
+	}, channel.WithTargetEndpoints("peer0.org1.blockchaingrant.com"))
 	if err != nil {
 		return channel.Response{}, err
 	}
@@ -60,7 +62,7 @@ func ChannelQuery(fcn string, args [][]byte) (channel.Response, error) {
 		ChaincodeID: ChainCodeName,
 		Fcn:         fcn,
 		Args:        args,
-	}, channel.WithTargetEndpoints("peer0.org1.blockchainrealestate.com"))
+	}, channel.WithTargetEndpoints("peer0.org1.blockchaingrant.com"))
 	if err != nil {
 		return channel.Response{}, err
 	}

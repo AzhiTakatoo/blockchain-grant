@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# 清除链码容器 正则：/dev-peer.*.blockchain-real-estate.*/ 匹配上的都会被删除，其中blockchain-real-estate是链码名称，在安装和实例化的时候会指定
+# 清除链码容器 正则：/dev-peer.*.blockchain-grant.*/ 匹配上的都会被删除，其中blockchain-grant是链码名称，在安装和实例化的时候会指定
 function clearContainers() {
-  CONTAINER_IDS=$(docker ps -a | awk '($2 ~ /dev-peer.*.blockchain-real-estate.*/) {print $1}')
+  CONTAINER_IDS=$(docker ps -a | awk '($2 ~ /dev-peer.*.blockchain-grant.*/) {print $1}')
   if [ -z "$CONTAINER_IDS" -o "$CONTAINER_IDS" == " " ]; then
     echo "---- No containers available for deletion ----"
   else
@@ -10,9 +10,9 @@ function clearContainers() {
   fi
 }
 
-# 清除不需要的链码镜像 正则：/dev-peer.*.blockchain-real-estate.*/ 匹配上的都会被删除，其中blockchain-real-estate是链码名称，在安装和实例化的时候会指定
+# 清除不需要的链码镜像 正则：/dev-peer.*.blockchain-grant.*/ 匹配上的都会被删除，其中blockchain-grant是链码名称，在安装和实例化的时候会指定
 function removeUnwantedImages() {
-  DOCKER_IMAGE_IDS=$(docker images | awk '($1 ~ /dev-peer.*.blockchain-real-estate.*/) {print $3}')
+  DOCKER_IMAGE_IDS=$(docker images | awk '($1 ~ /dev-peer.*.blockchain-grant.*/) {print $3}')
   if [ -z "$DOCKER_IMAGE_IDS" -o "$DOCKER_IMAGE_IDS" == " " ]; then
     echo "---- No images available for deletion ----"
   else

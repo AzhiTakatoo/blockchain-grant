@@ -2,13 +2,13 @@ package main_test
 
 import (
 	"fmt"
-	"github.com/togettoyou/blockchain-real-estate/application/blockchain"
+	"github.com/orangebottle/blockchain-grant/application/blockchain"
 	"testing"
 )
 
-func TestInvoke_QueryAccountList(t *testing.T) {
+func TestInvoke_QueryRegisterCertify(t *testing.T) {
 	blockchain.Init()
-	response, e := blockchain.ChannelQuery("queryAccountList", [][]byte{})
+	response, e := blockchain.ChannelQuery("queryRegisterCertify", [][]byte{})
 	if e != nil {
 		fmt.Println(e.Error())
 		t.FailNow()

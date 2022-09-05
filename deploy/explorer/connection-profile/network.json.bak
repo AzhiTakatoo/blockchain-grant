@@ -1,0 +1,50 @@
+{
+  "name": "blockchain-grant-network",
+  "version": "1.0.0",
+  "client": {
+    "tlsEnable": true,
+    "adminCredential": {
+      "id": "admin",
+      "password": "123456"
+    },
+    "enableAuthentication": true,
+    "organization": "Org1MSP",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "channels": {
+    "assetschannel": {
+      "peers": {
+        "peer0.org1.blockchaingrant.com": {}
+      }
+    }
+  },
+  "organizations": {
+    "Org1MSP": {
+      "mspid": "Org1MSP",
+      "adminPrivateKey": {
+        "path": "/tmp/crypto/peerOrganizations/org1.blockchaingrant.com/users/Admin@org1.blockchaingrant.com/msp/keystore/261a201db72f0217b8877d813e5e055f803d626cae9343ea643f5194588c840a_sk"
+      },
+      "peers": [
+        "peer0.org1.blockchaingrant.com"
+      ],
+      "signedCert": {
+        "path": "/tmp/crypto/peerOrganizations/org1.blockchaingrant.com/users/Admin@org1.blockchaingrant.com/msp/signcerts/Admin@org1.blockchaingrant.com-cert.pem"
+      }
+    }
+  },
+  "peers": {
+    "peer0.org1.blockchaingrant.com": {
+      "tlsCACerts": {
+        "path": "/tmp/crypto/peerOrganizations/org1.blockchaingrant.com/peers/peer0.org1.blockchaingrant.com/tls/ca.crt"
+      },
+      "url": "grpc://peer0.org1.blockchaingrant.com:7051"
+    }
+  }
+}

@@ -2,7 +2,7 @@ version: 1.0.0
 
 # GO SDK使用的客户端部分。
 client:
-  # 这个应用程序是属于哪个组织的，这里就填那个组织的组织名
+  # 应用程序属于org1组织
   organization: org1
 
   # 日志登记
@@ -19,7 +19,7 @@ client:
     cryptoStore:
       path: /tmp/msp
 
-  # 这里配置的是加密组件的一些属性，默认即可
+  # 这配置的是加密组件的一些属性，默认即可
   BCCSP:
     security:
       enabled: true
@@ -35,18 +35,18 @@ channels:
   assetschannel:
     # 【必须】orderer的配置，填orderer的域名
     orderers:
-      - orderer.blockchainrealestate.com
+      - orderer.blockchaingrant.com
 
     # 【必须】节点配置
     peers:
       # 填写这个应用程序所属组织的Peer的域名
-      peer0.org1.blockchainrealestate.com:
+      peer0.org1.blockchaingrant.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
         eventSource: true
 
-      peer1.org1.blockchainrealestate.com:
+      peer1.org1.blockchaingrant.com:
         endorsingPeer: true
         chaincodeQuery: true
         ledgerQuery: true
@@ -71,12 +71,12 @@ organizations:
     mspid: Org1MSP
 
     # 这个组织的MSP证书路径
-    cryptoPath: peerOrganizations/org1.blockchainrealestate.com/users/{username}@org1.blockchainrealestate.com/msp
+    cryptoPath: peerOrganizations/org1.blockchaingrant.com/users/{username}@org1.blockchaingrant.com/msp
 
     # 这个组织下属的节点
     peers:
-      - peer0.org1.blockchainrealestate.com
-      - peer1.org1.blockchainrealestate.com
+      - peer0.org1.blockchaingrant.com
+      - peer1.org1.blockchaingrant.com
 
     certificateAuthorities:
     #- ca.org1.example.com
@@ -87,16 +87,16 @@ organizations:
     mspID: "OrdererMSP"
 
     # orderer组织的MSP证书路径
-    cryptoPath: ordererOrganizations/blockchainrealestate.com/users/{username}@blockchainrealestate.com/msp
+    cryptoPath: ordererOrganizations/blockchaingrant.com/users/{username}@blockchaingrant.com/msp
 
 # 指定orderer
 orderers:
-  orderer.blockchainrealestate.com:
+  orderer.blockchaingrant.com:
     url: 127.0.0.1:7050
 
     # grpc配置
     grpcOptions:
-      ssl-target-name-override: orderer.blockchainrealestate.com
+      ssl-target-name-override: orderer.blockchaingrant.com
       keep-alive-time: 0s
       keep-alive-timeout: 20s
       keep-alive-permit: false
@@ -105,13 +105,13 @@ orderers:
 
 # 指定peer
 peers:
-  peer0.org1.blockchainrealestate.com:
+  peer0.org1.blockchaingrant.com:
     url: 127.0.0.1:27051
     eventUrl: 127.0.0.1:27053
 
     # grpc配置
     grpcOptions:
-      ssl-target-name-override: peer0.org1.blockchainrealestate.com
+      ssl-target-name-override: peer0.org1.blockchaingrant.com
       keep-alive-time: 0s
       keep-alive-timeout: 20s
       keep-alive-permit: false

@@ -7,24 +7,18 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="'https://s1.ax1x.com/2020/03/18/8w2Z2F.jpg'" class="user-avatar">
+          <img src="@/../public/wyuLogo.webp" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <el-dropdown-item>
-            账户ID: {{ accountId }}
+            学号: {{ wyuUserId }}
           </el-dropdown-item>
           <el-dropdown-item>
-            用户名: {{ userName }}
+            姓名: {{ wyuUserName }}
           </el-dropdown-item>
-          <el-dropdown-item>
-            余额: ￥{{ balance }} 元
-          </el-dropdown-item>
-          <a target="_blank" href="https://github.com/togettoyou/blockchain-real-estate">
-            <el-dropdown-item>项目地址</el-dropdown-item>
-          </a>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">切换账户</span>
+            <span style="display:block;">退出登录</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -45,9 +39,8 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'accountId',
-      'userName',
-      'balance'
+      'wyuUserId',
+      'wyuUserName',
     ])
   },
   methods: {
@@ -55,8 +48,8 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('account/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      await this.$store.dispatch('grantUser/logout')
+      this.$router.push(`/login`)
     }
   }
 }

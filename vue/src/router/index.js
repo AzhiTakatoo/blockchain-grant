@@ -6,56 +6,38 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
-/**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
- *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
- * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
- * name:'router-name'             the name is used by <keep-alive> (must set!!!)
- * meta : {
-    roles: ['admin','editor']    control the page roles (you can set multiple roles)
-    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
-    icon: 'svg-name'             the icon show in the sidebar
-    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
-    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
-  }
- */
-
-/**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
- */
 export const constantRoutes = [{
-  path: '/login',
-  component: () => import('@/views/login/index'),
-  hidden: true
-},
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
 
-{
-  path: '/404',
-  component: () => import('@/views/404'),
-  hidden: true
-},
+  {
+    path: '/register',
+    component: () => import('@/views/register/index'),
+    hidden: true
+  },
 
-{
-  path: '/',
-  component: Layout,
-  redirect: '/realestate',
-  children: [{
-    path: 'realestate',
-    name: 'Realestate',
-    component: () => import('@/views/realestate/list/index'),
-    meta: {
-      title: '房产信息',
-      icon: 'realestate'
-    }
-  }]
-}
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
+
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/stipend',
+    children: [{
+      path: 'stipend',
+      name: 'Proofmaterial',
+      component: () => import('@/views/proofmaterial/list/index'),
+      meta: {
+        title: '助学金申请名单',
+        icon: '高校助学金'
+      }
+    }]
+  }
 ]
 
 /**
@@ -64,101 +46,94 @@ export const constantRoutes = [{
  */
 export const asyncRoutes = [
   {
-    path: '/selling',
+    path: '/applicationmaterials',
     component: Layout,
-    redirect: '/selling/all',
-    name: 'Selling',
+    redirect: '/applicationmaterials/text',
+    name: 'Applicationmaterials',
     alwaysShow: true,
     meta: {
-      title: '销售',
-      icon: 'selling'
+      roles: ['editor'],
+      title: '助学金材料',
+      icon: '助学金材料'
     },
     children: [{
-      path: 'all',
-      name: 'SellingAll',
-      component: () => import('@/views/selling/all/index'),
+      path: 'text',
+      name: 'ApplicationmaterialsText',
+      component: () => import('@/views/proofmaterial/add/text/index'),
       meta: {
-        title: '所有销售',
-        icon: 'sellingAll'
+        roles: ['editor'],
+        title: '提交申请材料（文本）',
+        icon: '提交数据'
       }
     },
     {
-      path: 'me',
-      name: 'SellingMe',
-      component: () => import('@/views/selling/me/index'),
+      path: 'file',
+      name: 'ApplicationmaterialsFile',
+      component: () => import('@/views/proofmaterial/add/file/index'),
       meta: {
         roles: ['editor'],
-        title: '我发起的',
-        icon: 'sellingMe'
+        title: '提交申请材料（文件）',
+        icon: '提交文件'
       }
     }, {
-      path: 'buy',
-      name: 'SellingBuy',
-      component: () => import('@/views/selling/buy/index'),
+      path: 'updatetext',
+      name: 'ApplicationmaterialsUpdateText',
+      component: () => import('@/views/proofmaterial/add/updatetext/index'),
       meta: {
         roles: ['editor'],
-        title: '我购买的',
-        icon: 'sellingBuy'
+        title: '修改申请材料（文本）',
+        icon: '修改数据'
       }
-    }
-    ]
+    }]
   },
+
   {
-    path: '/donating',
+    path: '/assess',
     component: Layout,
-    redirect: '/donating/all',
-    name: 'Donating',
+    redirect: '/assess/all',
+    name: 'Assess',
     alwaysShow: true,
     meta: {
-      title: '捐赠',
-      icon: 'donating'
+      title: '助学金评定',
+      icon: '助学金评定'
     },
     children: [{
-      path: 'all',
-      name: 'DonatingAll',
-      component: () => import('@/views/donating/all/index'),
-      meta: {
-        title: '所有捐赠',
-        icon: 'donatingAll'
-      }
-    },
-    {
-      path: 'donor',
-      name: 'DonatingDonor',
-      component: () => import('@/views/donating/donor/index'),
-      meta: {
-        roles: ['editor'],
-        title: '我发起的捐赠',
-        icon: 'donatingDonor'
-      }
-    }, {
-      path: 'grantee',
-      name: 'DonatingGrantee',
-      component: () => import('@/views/donating/grantee/index'),
-      meta: {
-        roles: ['editor'],
-        title: '我收到的受赠',
-        icon: 'donatingGrantee'
-      }
-    }
+        path: 'allrank',
+        name: 'Allrank',
+        component: () => import('@/views/assess/rank/index'),
+        meta: {
+          title: '申请名单详细信息',
+          icon: '排名'
+        }
+      },
+      {
+        path: 'allaward',
+        name: 'AllAward',
+        component: () => import('@/views/assess/award/index'),
+        meta: {
+          title: '获助学金名单',
+          icon: '奖杯'
+        }
+      },
     ]
   },
   {
-    path: '/addRealestate',
+    path: '/addblacklist',
     component: Layout,
     meta: {
       roles: ['admin']
     },
     children: [{
-      path: '/addRealestate',
-      name: 'AddRealestate',
-      component: () => import('@/views/realestate/add/index'),
+      path: '/addblacklist',
+      name: 'AddBlacklist',
+      component: () => import('@/views/assess/vote/index'),
       meta: {
-        title: '新增房产',
-        icon: 'addRealestate'
+        title: '助后评分',
+        icon: '评分'
       }
     }]
   },
+
 
   // 404 page must be placed at the end !!!
   {

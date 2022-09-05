@@ -86,12 +86,15 @@ peer:
         # since this is undefined state. If the peers are configured with
         # useLeaderElection=false, make sure there is at least 1 peer in the
         # organization that its orgLeader is set to true.
+        # 注意:“orgLeader”和“useLeaderElection”参数互斥。将两者都设置为true将导致对等端终止，因为这是未定义的状态。如果对等体配置了useLeaderElection=false，请确保组织中至少有一个对等体的orgLeader设置为true。
 
         # Defines whenever peer will initialize dynamic algorithm for
         # "leader" selection, where leader is the peer to establish
         # connection with ordering service and use delivery protocol
         # to pull ledger blocks from ordering service. It is recommended to
         # use leader election for large networks of peers.
+        # 节点是否使用动态算法选出主导节点，该主导节点将连接 排序服务并使用分发协议从排序服务拉取账本区块。
+        # 对大型网络建议启用主导节点选举
         useLeaderElection: true
         # Statically defines peer to be an organization "leader",
         # where this means that current peer will maintain connection

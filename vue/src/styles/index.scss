@@ -63,3 +63,13 @@ div:focus {
 .app-container {
   padding: 20px;
 }
+
+
+#background {
+  background: url("../../public/wyuCws.jpeg") no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  position: fixed;
+}

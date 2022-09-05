@@ -3,9 +3,7 @@ package routers
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
-	v1 "github.com/togettoyou/blockchain-real-estate/application/routers/api/v1"
+	v1 "github.com/orangebottle/blockchain-grant/application/routers/api/v1"
 	"net/http"
 	"strings"
 )
@@ -16,29 +14,36 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(Cors())
-	//swagger文档
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	//swagger文档界面访问URL
+	// http://127.0.0.1:8080/swagger/index.html
+	//r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	//创建路由组
 	apiV1 := r.Group("/api/v1")
 	{
-		apiV1.GET("/hello", v1.Hello)
-		apiV1.POST("/queryAccountList", v1.QueryAccountList)
-		apiV1.POST("/createRealEstate", v1.CreateRealEstate)
-		apiV1.POST("/queryRealEstateList", v1.QueryRealEstateList)
-		apiV1.POST("/createSelling", v1.CreateSelling)
-		apiV1.POST("/createSellingByBuy", v1.CreateSellingByBuy)
-		apiV1.POST("/querySellingList", v1.QuerySellingList)
-		apiV1.POST("/querySellingListByBuyer", v1.QuerySellingListByBuyer)
-		apiV1.POST("/updateSelling", v1.UpdateSelling)
-		apiV1.POST("/createDonating", v1.CreateDonating)
-		apiV1.POST("/queryDonatingList", v1.QueryDonatingList)
-		apiV1.POST("/queryDonatingListByGrantee", v1.QueryDonatingListByGrantee)
-		apiV1.POST("/updateDonating", v1.UpdateDonating)
+		apiV1.POST("/createWyuUser", v1.CreateWyuUser)
+		apiV1.POST("/queryWyuUser", v1.QueryWyuUser)
+		apiV1.POST("/createProofMaterial", v1.CreateProofMaterial)
+		apiV1.POST("/queryProofMaterial", v1.QueryProofMaterial)
+		apiV1.POST("/queryProofMaterialOnly", v1.QueryProofMaterialOnly)
+		apiV1.POST("/queryProofCertify", v1.QueryProofCertify)
+		apiV1.POST("/createPhotoMaterial", v1.CreatePhotoMaterial)
+		apiV1.POST("/queryPhotoMaterial", v1.QueryPhotoMaterial)
+		apiV1.POST("/updateProofMaterial", v1.UpdateProofMaterial)
+		apiV1.POST("/updatePower", v1.UpdatePower)
+		apiV1.POST("/setPower", v1.SetPower)
+		apiV1.POST("/queryPower", v1.QueryPower)
+		apiV1.POST("/createQueryStipendRanking", v1.CreateQueryStipendRanking)
+		apiV1.POST("/queryAwardList", v1.QueryAwardList)
+		apiV1.POST("createVote", v1.CreateVote)
+		apiV1.POST("/queryVote", v1.QueryVote)
+		apiV1.POST("/queryVoteOnly", v1.QueryVoteOnly)
 	}
 	// 静态文件路由
 	r.StaticFS("/web", http.Dir("./dist/"))
 	return r
 }
 
+//gin通过跨域中间件cors
 // Cors 允许跨域请求
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
@@ -56,15 +61,21 @@ func Cors() gin.HandlerFunc {
 		}
 		if origin != "" {
 			c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
-			c.Header("Access-Control-Allow-Origin", "*")                                       // 这是允许访问所有域
-			c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE,UPDATE") //服务器支持的所有跨域请求的方法,为了避免浏览次请求的多次'预检'请求
+			// 这是允许访问所有域
+			c.Header("Access-Control-Allow-Origin", "*")
+			// 服务器支持的所有跨域请求的方法,为了避免浏览次请求的多次'预检'请求
+			c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE,UPDATE")
 			// header的类型
 			c.Header("Access-Control-Allow-Headers", "Authorization, Content-Length, X-CSRF-Token, Token,session,X_Requested_With,Accept, Origin, Host, Connection, Accept-Encoding, Accept-Language,DNT, X-CustomHeader, Keep-Alive, User-Agent, X-Requested-With, If-Modified-Since, Cache-Control, Content-Type, Pragma")
 			// 允许跨域设置                                                                                                      可以返回其他子段
-			c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,Cache-Control,Content-Language,Content-Type,Expires,Last-Modified,Pragma,FooBar") // 跨域关键设置 让浏览器可以解析
-			c.Header("Access-Control-Max-Age", "172800")                                                                                                                                                           // 缓存请求信息 单位为秒
-			c.Header("Access-Control-Allow-Credentials", "false")                                                                                                                                                  //  跨域请求是否需要带cookie信息 默认设置为true
-			c.Set("content-type", "application/json")                                                                                                                                                              // 设置返回格式是json
+			// 跨域关键设置 让浏览器可以解析
+			c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers,Cache-Control,Content-Language,Content-Type,Expires,Last-Modified,Pragma,FooBar")
+			// 缓存请求信息 单位为秒
+			c.Header("Access-Control-Max-Age", "172800")
+			// 跨域请求是否需要带cookie信息 默认设置为true
+			c.Header("Access-Control-Allow-Credentials", "false")
+			// 设置返回格式是json
+			c.Set("content-type", "application/json")
 		}
 
 		// 放行所有OPTIONS方法

@@ -1,5 +1,5 @@
 {
-  "name": "blockchain-real-estate-network",
+  "name": "blockchain-grant-network",
   "version": "1.0.0",
   "client": {
     "tlsEnable": true,
@@ -21,7 +21,7 @@
   "channels": {
     "assetschannel": {
       "peers": {
-        "peer0.org1.blockchainrealestate.com": {}
+        "peer0.org1.blockchaingrant.com": {}
       }
     }
   },
@@ -29,22 +29,22 @@
     "Org1MSP": {
       "mspid": "Org1MSP",
       "adminPrivateKey": {
-        "path": "/tmp/crypto/peerOrganizations/org1.blockchainrealestate.com/users/Admin@org1.blockchainrealestate.com/msp/keystore/priv_sk"
+        "path": "/tmp/crypto/peerOrganizations/org1.blockchaingrant.com/users/Admin@org1.blockchaingrant.com/msp/keystore/6db9938761fae61fc5fd8deec05ec20cbec933dfaaaec9f631bb8455cc895148_sk"
       },
       "peers": [
-        "peer0.org1.blockchainrealestate.com"
+        "peer0.org1.blockchaingrant.com"
       ],
       "signedCert": {
-        "path": "/tmp/crypto/peerOrganizations/org1.blockchainrealestate.com/users/Admin@org1.blockchainrealestate.com/msp/signcerts/Admin@org1.blockchainrealestate.com-cert.pem"
+        "path": "/tmp/crypto/peerOrganizations/org1.blockchaingrant.com/users/Admin@org1.blockchaingrant.com/msp/signcerts/Admin@org1.blockchaingrant.com-cert.pem"
       }
     }
   },
   "peers": {
-    "peer0.org1.blockchainrealestate.com": {
+    "peer0.org1.blockchaingrant.com": {
       "tlsCACerts": {
-        "path": "/tmp/crypto/peerOrganizations/org1.blockchainrealestate.com/peers/peer0.org1.blockchainrealestate.com/tls/ca.crt"
+        "path": "/tmp/crypto/peerOrganizations/org1.blockchaingrant.com/peers/peer0.org1.blockchaingrant.com/tls/ca.crt"
       },
-      "url": "grpc://peer0.org1.blockchainrealestate.com:7051"
+      "url": "grpc://peer0.org1.blockchaingrant.com:7051"
     }
   }
 }
